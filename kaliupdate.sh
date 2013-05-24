@@ -20,7 +20,9 @@ if [ "$TEST" = "$PASS" ]; then
 	sleep 2
 	echo -e "\e[1;34m[*]Updating MSF.\e[0m"
 	/opt/metasploit/apps/pro/msf3/msfupdate
-	echo
+	cd /opt/metasploit/apps/pro/msf3/
+    bundle install
+    echo
 	sleep 2
 	echo -e "\e[1;34m[*]Updating Nessus.\e[0m"
 
