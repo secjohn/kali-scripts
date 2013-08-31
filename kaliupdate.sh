@@ -16,7 +16,9 @@ if [ "$TEST" = "$PASS" ]; then
 	echo -e "\e[1;34m[*] Updating the entire system.\e[0m"
 	echo
 	apt-get update && apt-get upgrade -y
-	echo
+	sleep 2
+	echo -e "\e[1;34m[*]Adding some needed packages.\e[0m"
+	apt-get -y install autoconf
 	sleep 2
 	echo -e "\e[1;34m[*]Updating MSF.\e[0m"
 	/opt/metasploit/apps/pro/msf3/msfupdate
@@ -24,14 +26,15 @@ if [ "$TEST" = "$PASS" ]; then
     bundle install
     echo
 	sleep 2
-	echo -e "\e[1;34m[*]Updating Nessus.\e[0m"
-
-	if [ -f /opt/nessus/sbin/nessus-update-plugins ]; then
-		cd /opt/nessus/sbin
-		./nessus-update-plugins
-	else
-		echo -e "\e[1;34m[*]Install Nessus and try again, or not.\e[0m"
-	fi
+#	This worked for Nessus 4, looks like Nessus 5 doesn't have a command line option, go click the button instead.
+#	echo -e "\e[1;34m[*]Updating Nessus.\e[0m"
+#
+#	if [ -f /opt/nessus/sbin/nessus-update-plugins ]; then
+#		cd /opt/nessus/sbin
+#		./nessus-update-plugins
+#	else
+#		echo -e "\e[1;34m[*]Install Nessus and try again, or not.\e[0m"
+#	fi
 
 	echo
 	sleep 2
