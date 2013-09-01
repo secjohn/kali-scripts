@@ -21,7 +21,7 @@ package(){
 #This installs extra packages I find most useful to add to a fresh Kali install.
 extra(){
   echo -e "\e[1;34m[*]Adding some needed and nice packages.\e[0m"
-  apt-get -y install autoconf terminator libssl-dev hostapd ipcalc isc-dhcp-server chromium
+  apt-get -y install autoconf terminator libssl-dev hostapd ipcalc isc-dhcp-server chromium cmake cmake-data emacsen-common libltdl-dev libpcap0.8-dev libtool libxmlrpc-core-c3
 
 }
 
@@ -58,10 +58,37 @@ source(){
   fi
   make && make install
   airodump-ng-oui-update
+  #Checking for free-radius and it not found installing it with the wpe patch.  This code is totally stollen from the easy-creds install file.  :-D
+  if [ ! -e /usr/bin/radiusd ] && [ ! -e /usr/sbin/radiusd ] && [ ! -e /usr/local/sbin/radiusd ] && [ ! -e /usr/local/bin/radiusd ]; then
+  echo -e "\e[1;34m[-] free-radius is not installed, will attempt to install...\e[0m"
+  sleep 2
+  mkdir /tmp/freeradius
+  echo -e "\n\e[1;34m[*] Downloading freeradius server 2.1.11 and the wpe patch...\e[0m"
+  wget ftp://ftp.freeradius.org/pub/radius/old/freeradius-server-2.1.11.tar.bz2 -O /tmp/freeradius/freeradius-server-2.1.11.tar.bz2
+  wget http://www.opensecurityresearch.com/files/freeradius-wpe-2.1.11.patch -O /tmp/freeradius/freeradius-wpe-2.1.11.patch
+  cd /tmp/freeradius
+  tar -jxvf freeradius-server-2.1.11.tar.bz2
+  mv freeradius-wpe-2.1.11.patch /tmp/ec-install/freeradius-server-2.1.11/freeradius-wpe-2.1.11.patch
+  cd freeradius-server-2.1.11
+  patch -p1 < freeradius-wpe-2.1.11.patch
+  echo -e "\n\e[1;34m[*] Installing the patched freeradius server...\e[0m"
+  sleep 3
+  ./configure && make && make install
+  cd /usr/local/etc/raddb/certs/
+  ./bootstrap
+  rm -r /tmp/freeradius
+  echo -e "\n\e[1;34m[+] The patched freeradius server has been installed\e[0m"
+  sleep 2
+else
+  echo -e "\e[1;34m[+] I found free-radius installed on your system\e[0m"
+  sleep 2
+fi
+updatedb
   #Saying what happened:
   echo -e "\e[1;34m[*]Installed or updated Fuzzdb to /usr/share/fuzzdb.\e[0m"
   echo -e "\e[1;34m[*]Installed or updated nmap-svn to /opt/nmap-svn.\e[0m"
   echo -e "\e[1;34m[*]Downloaded svn version of aircrack-ng to /opt/aircrack-ng-svn and overwrote package with it.\e[0m"
+  echo -e "\e[1;34m[*]If free-radius was not found, it was installed with the wpe patch.\e[0m"
   sleep 5
 }
 
