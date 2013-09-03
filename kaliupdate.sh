@@ -12,6 +12,11 @@ usage(){
 package(){
 	echo -e "\e[1;34m[*] Updating the entire system.\e[0m"
   apt-get update && apt-get upgrade -y
+  echo -e "\e[1;34m[*]Making sure MSF startups on boot.\e[0m"
+  ls /etc/rc* | grep "S..metasploit"
+  if [ $? -eq 1 ]; then
+    update-rc.d postgresql enable && update-rc.d metasploit enable
+  fi
   echo -e "\e[1;34m[*]Updating MSF.\e[0m"
   /opt/metasploit/apps/pro/msf3/msfupdate
   cd /opt/metasploit/apps/pro/msf3/
@@ -21,7 +26,7 @@ package(){
 #This installs extra packages I find most useful to add to a fresh Kali install.
 extra(){
   echo -e "\e[1;34m[*]Adding some needed and nice packages.\e[0m"
-  apt-get -y install autoconf terminator libssl-dev hostapd ipcalc isc-dhcp-server chromium cmake cmake-data emacsen-common libltdl-dev libpcap0.8-dev libtool libxmlrpc-core-c3
+  apt-get -y install autoconf terminator libssl-dev hostapd ipcalc isc-dhcp-server chromium cmake cmake-data emacsen-common libltdl-dev libpcap0.8-dev libtool libxmlrpc-core-c3 arp-scan filezilla gedit recon-ng xdotool
 
 }
 
