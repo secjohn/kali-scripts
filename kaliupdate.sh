@@ -88,12 +88,20 @@ else
   echo -e "\e[1;34m[+] I found free-radius installed on your system\e[0m"
   sleep 2
 fi
+#Installing easy-creds.  The needed packages should be taken care of in the extra packages section.
+if [ -d /opt/easy-creds ]; then
+  echo "\e[1;34m[*]Easy easy-creds install already found.\e[0m"
+else
+git clone git://github.com/brav0hax/easy-creds.git /opt/easy-creds
+ln -s /opt/easy-creds/easy-creds.sh /usr/bin/easy-creds
+fi
 updatedb
   #Saying what happened:
   echo -e "\e[1;34m[*]Installed or updated Fuzzdb to /usr/share/fuzzdb.\e[0m"
   echo -e "\e[1;34m[*]Installed or updated nmap-svn to /opt/nmap-svn.\e[0m"
   echo -e "\e[1;34m[*]Downloaded svn version of aircrack-ng to /opt/aircrack-ng-svn and overwrote package with it.\e[0m"
   echo -e "\e[1;34m[*]If free-radius was not found, it was installed with the wpe patch.\e[0m"
+  echo -e "\e[1;34m[*]If easy-creds was not found it was installed.\e[0m"
   sleep 5
 }
 
