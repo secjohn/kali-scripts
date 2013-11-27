@@ -26,7 +26,7 @@ package(){
 #This installs extra packages I find most useful to add to a fresh Kali install.
 extra(){
   echo -e "\e[1;34m[*]Adding some needed and nice packages.\e[0m"
-  apt-get -y cifs.utils install autoconf terminator libssl-dev hostapd ipcalc isc-dhcp-server chromium cmake cmake-data emacsen-common libltdl-dev libpcap0.8-dev libtool libxmlrpc-core-c3 arp-scan filezilla gedit recon-ng xdotool
+  apt-get install -y cifs-utils autoconf terminator libssl-dev hostapd ipcalc isc-dhcp-server chromium cmake cmake-data emacsen-common libltdl-dev libpcap0.8-dev libtool libxmlrpc-core-c3 arp-scan filezilla gedit recon-ng xdotool
 
 }
 
