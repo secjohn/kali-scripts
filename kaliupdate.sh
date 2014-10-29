@@ -11,7 +11,7 @@ usage(){
 #This option updates the packages installed and Metasploit.
 package(){
 	echo -e "\e[1;34m[*] Updating the entire system.\e[0m"
-  apt-get update && apt-get upgrade -y
+  apt-get update && apt-get dist-upgrade -y
   echo -e "\e[1;34m[*]Making sure MSF startups on boot.\e[0m"
   ls /etc/rc* | grep "S..metasploit"
   if [ $? -eq 1 ]; then
@@ -65,7 +65,7 @@ source(){
   airodump-ng-oui-update
   #Checking for free-radius and it not found installing it with the wpe patch.  This code is totally stollen from the easy-creds install file.  :-D
   if [ ! -e /usr/bin/radiusd ] && [ ! -e /usr/sbin/radiusd ] && [ ! -e /usr/local/sbin/radiusd ] && [ ! -e /usr/local/bin/radiusd ]; then
-  echo -e "\e[1;34m[-] free-radius is not installed, will attempt to install...\e[0m"
+  echo -e "\e[1;34m[*] free-radius is not installed, will attempt to install...\e[0m"
   sleep 2
   mkdir /tmp/freeradius
   echo -e "\n\e[1;34m[*] Downloading freeradius server 2.1.11 and the wpe patch...\e[0m"
@@ -82,15 +82,15 @@ source(){
   cd /usr/local/etc/raddb/certs/
   ./bootstrap
   rm -r /tmp/freeradius
-  echo -e "\n\e[1;34m[+] The patched freeradius server has been installed\e[0m"
+  echo -e "\n\e[1;34m[*] The patched freeradius server has been installed\e[0m"
   sleep 2
 else
-  echo -e "\e[1;34m[+] I found free-radius installed on your system\e[0m"
+  echo -e "\e[1;34m[*] I found free-radius installed on your system\e[0m"
   sleep 2
 fi
 #Installing easy-creds.  The needed packages should be taken care of in the extra packages section.
 if [ -d /opt/easy-creds ]; then
-  echo "\e[1;34m[*]Easy easy-creds install already found.\e[0m"
+  echo -e "\e[1;34m[*]Easy easy-creds install already found.\e[0m"
 else
 git clone git://github.com/brav0hax/easy-creds.git /opt/easy-creds
 ln -s /opt/easy-creds/easy-creds.sh /usr/bin/easy-creds
