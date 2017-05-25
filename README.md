@@ -3,6 +3,11 @@
 ## Overview
 This is simply a place for me to store scripts to make my life easier using kali.  Hopfully others will find them useful and even contribute to them.
 
+### Update 05/25/2017
+Sorry it has been a while. I updated both update scripts. I changed fuzzdb from svn to git since svn isn't working anymore. I commented out easycreds and svn version of aircrack. Easycreds is dated and I don't see the need for the aircrack updates anymore. But I left them commented if you love them uncomment it. Removed the bundle update to metasploit, that isn't a thing anymore. Added cleaning to the package updates. I left the nmap-svn alone but normally I just use that for scripts, kali is doing great keeping nmap current as heck. All the same updates to the auto script as well. 
+
+Note: This won't fix your sources for you! If you are using this to keep Kali up to date on Kali 2.0 and have not changed your sources to the kali-rolling you are going to have problems. See this link: https://www.kali.org/news/kali-linux-rolling-edition-2016-1/. In short as of right now the /etc/apt/sources.list should look like this: deb http://http.kali.org/kali kali-rolling main non-free contrib
+
 ### kaliupdate.sh
 Update 10/29/14:
 Minor typo changes in echo's. Changed the update to do a dist-update.
