@@ -2,7 +2,8 @@
 #It assumes you ran the kaliupdate.sh file and did a -a once, it does not check for packages needed or install new ones or patch freeradius or install easy-creds other one time things from the other script.
 
 apt-get update -y && apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade -y && apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" dist-upgrade -y
-
+apt-get autoclean -y && apt-get clean -y
+apt-get autoremove
 if [ -d /usr/share/fuzzdb/.git ]; then
     cd /usr/share/fuzzdb
     git pull
